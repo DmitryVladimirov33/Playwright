@@ -23,7 +23,7 @@ import re
 #
 
 def test_mrt(playwright: Playwright) -> None:
-    browser = playwright.chromium.launch(headless=False)
+    browser = playwright.chromium.launch(headless=True)
     context = browser.new_context()
     page = context.new_page()
     page.goto("https://msk.mrtexpert.ru/about")
