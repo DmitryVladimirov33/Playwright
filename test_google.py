@@ -2,7 +2,7 @@ from playwright.sync_api import Playwright
 
 
 def test_expert_ui(playwright: Playwright) -> None:
-    browser = playwright.chromium.launch(headless=False)
+    browser = playwright.chromium.launch(headless=True)
     context = browser.new_context()
     page = context.new_page()
     page.goto("https://msk.mrtexpert.ru/about")
@@ -20,7 +20,7 @@ def test_expert_ui(playwright: Playwright) -> None:
 
 
 def test_expert(playwright: Playwright) -> None:
-    browser = playwright.chromium.launch(headless=False)
+    browser = playwright.chromium.launch(headless=True)
     context = browser.new_context()
     page = context.new_page()
     page.goto("https://msk.mrtexpert.ru/about")
