@@ -2,13 +2,13 @@ from playwright.sync_api import Playwright
 
 
 def test_expert_ui(playwright: Playwright) -> None:
-    browser = playwright.chromium.launch(headless=True)
+    browser = playwright.chromium.launch(headless=False)
     context = browser.new_context()
     page = context.new_page()
     page.goto("https://msk.mrtexpert.ru/about")
     page.wait_for_load_state("networkidle")
     with page.expect_popup() as page1_info:
-        page.get_by_role("banner").get_by_role("link", name="Онлайн-консультация").click(timeout=60000)
+        page.locator('body > header > div.py-3.lg\:py-5.bg-white > div > div > div.hidden.lg\:flex.items-center.space-x-5.lg\:ml-auto > div:nth-child(2) > a').click()
     page1 = page1_info.value
     page1.get_by_role("link", name="Продолжить").click()
     page1.goto("https://app.telemedex.ru/telemedex/patient/login")
@@ -18,7 +18,6 @@ def test_expert_ui(playwright: Playwright) -> None:
 
     context.close()
     browser.close()
-
 
 # def test_expert(playwright: Playwright) -> None:
 #     browser = playwright.chromium.launch(headless=True)
