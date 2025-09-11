@@ -2,13 +2,13 @@ from playwright.sync_api import Playwright
 
 
 def test_expert_ui(playwright: Playwright) -> None:
-    browser = playwright.chromium.launch(headless=True)
+    browser = playwright.chromium.launch(headless=False)
     context = browser.new_context()
     page = context.new_page()
     page.goto("https://msk.mrtexpert.ru/about")
     page.wait_for_load_state("networkidle")
     with page.expect_popup() as page1_info:
-        res = page.get_by_role("banner").get_by_role("link", name="Онлайн-консультация")
+        res = page.locator("a.button-sm.button-border-gray-650[href='https://www.telemedex.ru']")
         res.wait_for()
         res.click()
     page1 = page1_info.value
