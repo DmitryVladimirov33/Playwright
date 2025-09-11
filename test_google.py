@@ -1,4 +1,4 @@
-from playwright.sync_api import Playwright
+from playwright.sync_api import Playwright, expect
 
 
 def test_expert_ui(playwright: Playwright) -> None:
@@ -7,7 +7,9 @@ def test_expert_ui(playwright: Playwright) -> None:
     page = context.new_page()
     page.goto("https://msk.mrtexpert.ru/about")
     with page.expect_popup() as page1_info:
-        page.get_by_role("banner").get_by_role("link", name="Онлайн-консультация").click()
+        banner = page.get_by_role("banner").get_by_role("link", name="Онлайн-консультация")
+        expect(banner).to_be_visible()
+        banner.click()
     page1 = page1_info.value
     page1.get_by_role("link", name="Продолжить").click()
     page1.goto("https://app.telemedex.ru/telemedex/patient/login")
@@ -24,8 +26,10 @@ def test_expert(playwright: Playwright) -> None:
     context = browser.new_context()
     page = context.new_page()
     page.goto("https://msk.mrtexpert.ru/about")
-    with page.expect_popup() as page1_info:
-        page.get_by_role("banner").get_by_role("link", name="Онлайн-консультация").click()
+    with page.expect_popup():
+        banner = page.get_by_role("banner").get_by_role("link", name="Онлайн-консультация")
+        expect(banner).to_be_visible()
+        banner.click()
 
     context.close()
     browser.close()
