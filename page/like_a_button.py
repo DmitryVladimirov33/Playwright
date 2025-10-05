@@ -1,15 +1,12 @@
 from playwright.sync_api import expect
+from page.base_page import BasePage
 
 BUTTON = '.a-button'
 RESULT = '#result-text'
 
 
-class LikeButton:
-    def __init__(self, page):
-        self.page = page
-
-    def open(self):
-        self.page.goto('https://www.qa-practice.com/elements/button/like_a_button')
+class LikeButton(BasePage):
+    url = 'https://www.qa-practice.com/elements/button/like_a_button'
 
     def check_button_exist(self):
         button = self.page.locator(BUTTON)
