@@ -1,5 +1,5 @@
 from playwright.sync_api import Page
-from page.like_a_button import LikeButton
+from page.like_a_button_page import LikeButton
 
 
 def test_like_button_exist(page: Page):
